@@ -50,7 +50,7 @@ wavs/
 ## Roadmap
 
 - [x] HTTP engine
-- [ ] Crawler
+- [x] Crawler
 - [ ] Security headers module
 - [ ] Sensitive files module
 - [ ] SQL injection module (detection)
