@@ -51,7 +51,7 @@ wavs/
 
 - [x] HTTP engine
 - [x] Crawler
-- [ ] Security headers module
+- [x] Security headers module
 - [ ] Sensitive files module
 - [ ] SQL injection module (detection)
 - [ ] Reflected XSS module
