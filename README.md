@@ -43,6 +43,8 @@ wavs/
 ├── report/
 │   └── reporter.py         # JSON + HTML report
 ├── wordlists/
+│   ├── common.txt          # bundled SecLists common.txt (MIT)
+│   └── SOURCES.md          # wordlist origins and licences
 ├── main.py                 # CLI
 └── README.md
 ```
@@ -52,7 +54,7 @@ wavs/
 - [x] HTTP engine
 - [x] Crawler
 - [x] Security headers module
-- [ ] Sensitive files module
+- [x] Sensitive files module
 - [ ] SQL injection module (detection)
 - [ ] Reflected XSS module
 - [ ] CSRF module
@@ -76,3 +78,9 @@ pip install -r requirements.txt
 
 The command-line interface is not wired up yet. This section will be completed
 once the CLI module lands.
+
+## Credits
+
+- Bundled wordlist `wavs/wordlists/common.txt` comes from
+  [SecLists](https://github.com/danielmiessler/SecLists) (MIT). See
+  `wavs/wordlists/SOURCES.md`.
