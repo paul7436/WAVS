@@ -4,8 +4,9 @@ A modular, asynchronous web application vulnerability scanner written in Python.
 WAVS crawls a target in scope, collects injection points (links and forms), and
 runs a set of independent detection modules that report normalised findings.
 
-> **Status: work in progress.** Modules are built one at a time. See the
-> roadmap below for what is implemented.
+> **Status: all planned modules implemented.** The scanner crawls a target,
+> runs every detection module, and writes JSON and HTML reports. See the
+> roadmap below.
 
 ## ⚠️ Legal & ethical scope
 
@@ -45,8 +46,9 @@ wavs/
 ├── wordlists/
 │   ├── common.txt          # bundled SecLists common.txt (MIT)
 │   └── SOURCES.md          # wordlist origins and licences
-├── main.py                 # CLI
-└── README.md
+└── main.py                 # CLI
+
+tests/                      # pytest suite (one file per component)
 ```
 
 ## Roadmap
@@ -59,7 +61,7 @@ wavs/
 - [x] Reflected XSS module
 - [x] CSRF module
 - [x] Reporting (JSON + HTML)
-- [ ] CLI, documentation, tests
+- [x] CLI, documentation, tests
 
 ## Requirements
 
@@ -76,8 +78,57 @@ pip install -r requirements.txt
 
 ## Usage
 
-The command-line interface is not wired up yet. This section will be completed
-once the CLI module lands.
+Run the scanner as a module from the project root:
+
+```bash
+python -m wavs.main http://localhost:8080/
+```
+
+Scan an authenticated session and write both reports:
+
+```bash
+python -m wavs.main http://localhost:8080/ \
+    --cookies "PHPSESSID=abc123; security=low" \
+    --delay 0.2 \
+    --json report.json \
+    --html report.html
+```
+
+Run only selected modules:
+
+```bash
+python -m wavs.main http://localhost:8080/ --modules headers,csrf
+```
+
+### Options
+
+| Option | Description | Default |
+| --- | --- | --- |
+| `target` | Seed URL to crawl and scan | *(required)* |
+| `-m`, `--modules` | Comma-separated modules, or `all` | `all` |
+| `--cookies` | Cookie string, e.g. `name=value; name2=value2` | – |
+| `--delay` | Seconds between requests (be gentle) | `0.0` |
+| `--concurrency` | Maximum concurrent requests | `10` |
+| `--timeout` | Per-request timeout in seconds | `10.0` |
+| `--max-depth` | Maximum crawl depth | `2` |
+| `--max-pages` | Maximum pages to crawl | `100` |
+| `--user-agent` | Override the User-Agent header | *(WAVS UA)* |
+| `--wordlist` | Wordlist for the `sensitive_files` module | bundled list |
+| `--sqli-sleep` | Delay for time-based SQLi probes | `5` |
+| `--insecure` | Disable TLS certificate verification | off |
+| `--json` / `--html` | Write a report to the given path | – |
+
+Available modules: `headers`, `sensitive_files`, `sqli`, `xss`, `csrf`.
+
+## Tests
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+The suite spins up local mock servers and checks each module end to end,
+including the full CLI pipeline. No external target is contacted.
 
 ## Credits
 
