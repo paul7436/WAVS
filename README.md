@@ -58,7 +58,7 @@ wavs/
 - [x] SQL injection module (detection)
 - [x] Reflected XSS module
 - [x] CSRF module
-- [ ] Reporting (JSON + HTML)
+- [x] Reporting (JSON + HTML)
 - [ ] CLI, documentation, tests
 
 ## Requirements
