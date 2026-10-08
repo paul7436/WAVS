@@ -56,7 +56,7 @@ wavs/
 - [x] Security headers module
 - [x] Sensitive files module
 - [x] SQL injection module (detection)
-- [ ] Reflected XSS module
+- [x] Reflected XSS module
 - [ ] CSRF module
 - [ ] Reporting (JSON + HTML)
 - [ ] CLI, documentation, tests
