@@ -55,7 +55,7 @@ wavs/
 - [x] Crawler
 - [x] Security headers module
 - [x] Sensitive files module
-- [ ] SQL injection module (detection)
+- [x] SQL injection module (detection)
 - [ ] Reflected XSS module
 - [ ] CSRF module
 - [ ] Reporting (JSON + HTML)
