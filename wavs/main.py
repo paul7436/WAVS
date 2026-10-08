@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import sys
 
+from wavs.banner import print_banner
 from wavs.core.crawler import Crawler
 from wavs.core.http_client import HttpClient
 from wavs.modules.base import Finding
@@ -46,6 +47,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--insecure", action="store_true", help="Disable TLS certificate verification")
     parser.add_argument("--json", dest="json_path", help="Write a JSON report to this path")
     parser.add_argument("--html", dest="html_path", help="Write an HTML report to this path")
+    parser.add_argument("--no-banner", action="store_true", help="Do not print the startup banner")
     return parser.parse_args(argv)
 
 
@@ -125,6 +127,8 @@ def _log(message: str) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
+    if not args.no_banner:
+        print_banner()
     report = asyncio.run(scan(args))
     Reporter().save(report, json_path=args.json_path, html_path=args.html_path)
     print_summary(report)
